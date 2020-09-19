@@ -89,7 +89,7 @@ public class HeadsetDetection extends CordovaPlugin {
     }
 
     public void onReset() {
-        removeHeadsetListener();
+        //removeHeadsetListener();
     }
 
     private int getConnectionStatus(String action, Intent intent) {
