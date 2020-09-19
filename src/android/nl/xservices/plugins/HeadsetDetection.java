@@ -27,7 +27,7 @@ public class HeadsetDetection extends CordovaPlugin {
     private static final int DEFAULT_STATE = -1;
     private static final int DISCONNECTED = 0;
     private static final int CONNECTED = 1;
-    protected static CordovaWebView mCachedWebView = null;
+    protected static CallbackContext callback;
 
     BroadcastReceiver receiver;
 
@@ -38,7 +38,6 @@ public class HeadsetDetection extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        mCachedWebView = webView;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
@@ -49,12 +48,13 @@ public class HeadsetDetection extends CordovaPlugin {
 
                 if (status == CONNECTED) {
                     Log.d(LOG_TAG, "Headset is connected");
-                    mCachedWebView.sendJavascript("cordova.require('cordova-plugin-headsetdetection.HeadsetDetection').remoteHeadsetAdded();");
+                    callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, "connected"));
                 } else if (status == DISCONNECTED) {
                     Log.d(LOG_TAG, "Headset is disconnected");
-                    mCachedWebView.sendJavascript("cordova.require('cordova-plugin-headsetdetection.HeadsetDetection').remoteHeadsetRemoved();");
+                    callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, "disconnected"));
                 } else {
                     Log.d(LOG_TAG, "Headset state is unknown: " + status);
+                    callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, "error"));
                 }
             }
         };
@@ -64,8 +64,11 @@ public class HeadsetDetection extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
         try {
-            if (ACTION_DETECT.equals(action) || ACTION_EVENT.equals(action)) {
+            if (ACTION_DETECT.equals(action) ) {
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, isHeadsetEnabled()));
+                return true;
+            } else if(ACTION_EVENT.equals(action)) {
+                callback = callbackContext;
                 return true;
             } else {
                 callbackContext.error("headsetdetection." + action + " is not a supported function. Did you mean '" + ACTION_DETECT + "'?");
@@ -89,7 +92,7 @@ public class HeadsetDetection extends CordovaPlugin {
     }
 
     public void onReset() {
-        //removeHeadsetListener();
+        removeHeadsetListener();
     }
 
     private int getConnectionStatus(String action, Intent intent) {
