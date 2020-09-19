@@ -28,6 +28,7 @@ public class HeadsetDetection extends CordovaPlugin {
     private static final int DISCONNECTED = 0;
     private static final int CONNECTED = 1;
     protected static CallbackContext callback;
+    protected static CordovaWebView mCachedWebView;
 
     BroadcastReceiver receiver;
 
@@ -38,6 +39,7 @@ public class HeadsetDetection extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
+        mCachedWebView = webView;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         intentFilter.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
@@ -58,7 +60,7 @@ public class HeadsetDetection extends CordovaPlugin {
                 }
             }
         };
-        mCachedWebView.getContext().registerReceiver(this.receiver, intentFilter);
+        webView.getContext().registerReceiver(this.receiver, intentFilter);
     }
 
     @Override
