@@ -18,30 +18,18 @@
     <clobbers target="window.HeadsetDetection" />
   </js-module>
 
-  <!-- ios -->
-  <platform name="ios">
-
-    <config-file target="config.xml" parent="/*">
-      <feature name="HeadsetDetection">
-        <param name="ios-package" value="HeadsetDetection"/>
-        <param name="onload" value="true" />
-      </feature>
-    </config-file>
-
-    <header-file src="src/ios/HeadsetDetection.h"/>
-    <source-file src="src/ios/HeadsetDetection.m"/>
-  </platform>
-
   <!-- android -->
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="HeadsetDetection">
         <param name="android-package" value="nl.xservices.plugins.HeadsetDetection" />
+        <param name="onload" value="true" />
       </feature>
     </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.BLUETOOTH" />
       <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     </config-file>
 

@@ -5,13 +5,12 @@
   "cordova": {
     "id": "cordova-plugin-headsetdetection",
     "platforms": [
-      "ios",
       "android"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EddyVerbruggen/HeadsetDetection-PhoneGap-Plugin.git"
+    "url": "git+https://github.com/AlexanderWyss/HeadsetDetection-PhoneGap-Plugin.git"
   },
   "keywords": [
     "cordova",
@@ -19,13 +18,12 @@
     "headset",
     "headset detection",
     "ecosystem:cordova",
-    "cordova-ios",
     "cordova-android"
   ],
-  "author": "Eddy Verbruggen <eddyverbruggen@gmail.com>",
+  "author": "Alexander Wyss <alexsilvan.wyss@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EddyVerbruggen/HeadsetDetection-PhoneGap-Plugin/issues"
+    "url": "https://github.com/AlexanderWyss/HeadsetDetection-PhoneGap-Plugin/issues"
   },
-  "homepage": "https://github.com/EddyVerbruggen/HeadsetDetection-PhoneGap-Plugin#readme"
+  "homepage": "https://github.com/AlexanderWyss/HeadsetDetection-PhoneGap-Plugin#readme"
 }

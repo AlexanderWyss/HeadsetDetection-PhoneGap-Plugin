@@ -10,9 +10,11 @@ var HeadsetDetection = {
     this.actionCallback = actionCallback;
   },
   remoteHeadsetRemoved: function() {
+    console.log('headsetRemoved');
     this.actionCallback && this.actionCallback('headsetRemoved');
   },
   remoteHeadsetAdded: function() {
+    console.log('headsetAdded');
     this.actionCallback && this.actionCallback('headsetAdded');
   }
 };
